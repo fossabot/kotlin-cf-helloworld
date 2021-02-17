@@ -10,7 +10,7 @@ public class GreetingController {
 
     @GetMapping("/")
     fun greeting(@RequestParam("name") name: String?):Greeting{
-        val targetName = if (name.isNullOrEmtpy()) "World" else name
+        val targetName = if (name.isNullOrEmpty()) "World" else name
         return Greeting("kotlin", String.format(template, targetName))
     }
 }

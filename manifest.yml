@@ -1,0 +1,5 @@
+---
+applications:
+- name: kotlin-helloworld
+  memory: 1024MB
+  random-route: true

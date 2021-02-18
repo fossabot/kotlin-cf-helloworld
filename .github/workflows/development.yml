@@ -1,8 +1,12 @@
-name: testBuildDeployToCF
+name: testBuild
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - development
+  pull_request:
+    branches:
+      - development
   workflow_dispatch:
 
 jobs:
@@ -36,19 +40,3 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package -f pom.xml
-
-  deploy:
-    runs-on: ubuntu-20.04
-    needs: [build]
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Deploy app
-        uses: citizen-of-planet-earth/cf-cli-action@master
-        with:
-          cf_api: https://api.cf.datev.cloud
-          cf_username: ${{ secrets.CF_USER }}
-          cf_password: ${{ secrets.CF_PASSWORD }}
-          cf_org: helloworld
-          cf_space: github
-          command: push -f manifest.yml
